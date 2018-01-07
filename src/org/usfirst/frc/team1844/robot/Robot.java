@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1844.robot;
 
 import org.usfirst.frc.team1844.robot.subsystems.LiftArm;
+import org.usfirst.frc.team1844.robot.commands.autonomous.AutoScript;
 import org.usfirst.frc.team1844.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -33,7 +34,8 @@ public class Robot extends TimedRobot {
 	public static LiftArm m_liftarm;
 	
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<RobotConstants.AutoPositions> m_positionChooser = new SendableChooser<>();
+	SendableChooser<RobotConstants.AutoOptions> m_autonomousChooser = new SendableChooser<>();
 
 	private Preferences m_robotPrefs;
 
@@ -58,9 +60,15 @@ public class Robot extends TimedRobot {
 		m_intake = new Intake();
 		m_climber = new Climber();
 		
-		// m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
-		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		m_positionChooser.addDefault("Left", RobotConstants.AutoPositions.kLeft);
+		m_positionChooser.addObject("Middle", RobotConstants.AutoPositions.kMiddle);
+		m_positionChooser.addObject("Right", RobotConstants.AutoPositions.kRight);
+		SmartDashboard.putData("Auto Position", m_positionChooser);
+		
+		m_autonomousChooser.addDefault("Switch", RobotConstants.AutoOptions.kSwitch);
+		m_autonomousChooser.addObject("Scale", RobotConstants.AutoOptions.kScale);
+		SmartDashboard.putData("Auto options", m_autonomousChooser);
 	}
 
 	/**
@@ -92,16 +100,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = m_chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-		 * switch(autoSelected) { case "My Auto": autonomousCommand = new
-		 * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-		 * ExampleCommand(); break; }
-		 */
-
-		// schedule the autonomous command (example)
+		m_autonomousCommand = new AutoScript(m_positionChooser.getSelected(), m_autonomousChooser.getSelected());
+		
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
