@@ -6,8 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *Command allowing for user intake of cubic objects. 
- *Terminates when limit switch is pressed
+ *
  */
 public class IntakeIn extends Command {
 	private static final double SPEED = 0.3;

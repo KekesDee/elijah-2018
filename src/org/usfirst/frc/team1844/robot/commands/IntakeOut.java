@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *Command to release cubic objects from intake
+ *
  */
 public class IntakeOut extends Command {
 

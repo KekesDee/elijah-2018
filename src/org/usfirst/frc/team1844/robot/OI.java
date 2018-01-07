@@ -25,7 +25,7 @@ public class OI {
 
 
 	// We don't need to worry so much about magic numbers here, since we are keeping
-	// all of the button code together
+	// all of the button code together.
 
 	private Button intakeIn = new JoystickButton(driveStick,4);
 	private Button intakeOut = new JoystickButton(driveStick,5);
