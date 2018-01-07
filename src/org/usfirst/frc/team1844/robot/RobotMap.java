@@ -37,4 +37,13 @@ public class RobotMap {
 	//				PCM_SHOOTER_HOOD
 	//				RELAY_VISION_LED
 	
+	//Motors
+	public static final int Motor_one = 7;
+	public static final int Motor_two = 8;
+	
+	//Encoders
+	public static final int Encoder_one = 6;
+
+	
+	
 }
