@@ -8,6 +8,7 @@
 package org.usfirst.frc.team1844.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
@@ -17,7 +18,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 
-	private Joystick driveStick = new Joystick(0);
+	private XboxController driveStick = new XboxController(0);
+
 
 	// We don't need to worry so much about magic numbers here, since we are keeping
 	// all of the button code together
@@ -27,7 +29,7 @@ public class OI {
 		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.
 	}
 
-	public Joystick getDriverJoystick() {
+	public XboxController getDriverJoystick() {
 		return driveStick;
 	}
 }
