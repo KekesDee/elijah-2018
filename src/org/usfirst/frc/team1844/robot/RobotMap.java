@@ -50,5 +50,6 @@ public class RobotMap {
 	// Limit Switches
 	public static final int DIO_ARM_BOTLIM = 4;
 	public static final int DIO_ARM_TOPLIM = 5;
+	public static final int DIO_INTAKE_LIM = 6;
 	
 }

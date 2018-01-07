@@ -7,7 +7,10 @@
 
 package org.usfirst.frc.team1844.robot;
 
-import edu.wpi.first.wpilibj.Joystick;
+import org.usfirst.frc.team1844.robot.commands.Intake;
+import org.usfirst.frc.team1844.robot.commands.IntakeIn;
+import org.usfirst.frc.team1844.robot.commands.IntakeOut;
+
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -23,13 +26,23 @@ public class OI {
 
 	// We don't need to worry so much about magic numbers here, since we are keeping
 	// all of the button code together
-	private Button exampleButton = new JoystickButton(driveStick, 0);
+
+	private Button intakeIn = new JoystickButton(driveStick,4);
+	private Button intakeOut = new JoystickButton(driveStick,5);
 
 	public OI() {
-		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.
+		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.	
+		//exampleButton.whileHeld(new Intake());	
+		//exampleButton.whenPressed(new Intake());
+		
+		intakeIn.whileHeld(new IntakeIn());
+		intakeOut.whileHeld(new IntakeOut());
+		
 	}
 
-	public XboxController getDriverJoystick() {
+	public XboxController getDriverJoystick() 
+	{
+		
 		return driveStick;
 	}
 }

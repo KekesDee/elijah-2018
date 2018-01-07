@@ -15,9 +15,7 @@ public class Intake extends Subsystem {
     SpeedController leftIntake;
     SpeedController rightIntake;
     SpeedController topIntake;
-    
-    DigitalInput limit;
-
+   
     public void initDefaultCommand() {
         leftIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
         rightIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
@@ -29,9 +27,6 @@ public class Intake extends Subsystem {
     	leftIntake.set(speed);
     	rightIntake.set(speed);
     	topIntake.set(speed);
-    	
-    	while (limit.get());
-    		stopMotors();
     	
     }
     
