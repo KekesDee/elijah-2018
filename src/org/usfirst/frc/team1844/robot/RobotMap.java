@@ -14,15 +14,7 @@ package org.usfirst.frc.team1844.robot;
  * floating around.
  */
 public class RobotMap {
-		
-		//MOTORS
-		public static final int IntakeLeft = 4;
-		public static final int IntakeRight = 5;
-		public static final int IntakeTop = 6;
-		
-		public static final int limitSwitch = 0;
-		
-		
+	
 	// Let's establish a naming convention here.
 	// Each constant will be of the format INTERFACE_SUBSYSTEM_COMPONENT.
 	// Remember also that all of these should be public static final ints.
@@ -33,13 +25,30 @@ public class RobotMap {
 	//				PCM_SHOOTER_HOOD
 	//				RELAY_VISION_LED
 	
-	//Motors
-	public static final int Motor_one = 7;
-	public static final int Motor_two = 8;
+	// Motors
+	public static final int CAN_DRIVE_FLMOTOR = 0;
+	public static final int CAN_DRIVE_BLMOTOR = 1;
+	public static final int CAN_DRIVE_FRMOTOR = 8;
+	public static final int CAN_DRIVE_BRMOTOR = 9;
 	
-	//Encoders
-	public static final int Encoder_one = 6;
-
+	public static final int CAN_INTAKE_LEFTMOTOR = 4;
+	public static final int CAN_INTAKE_RIGHTMOTOR = 5;
+	public static final int CAN_INTAKE_TOP = 50; // Don't think we'll have this
 	
+	public static final int CAN_ARM_LEFTMOTOR = 2;
+	public static final int CAN_ARM_RIGHTMOTOR = 7;
+	
+	public static final int CAN_CLIMBER_LEFTMOTOR = 3;
+	public static final int CAN_CLIMBER_RIGHTMOTOR = 6;
+	
+	// Encoders
+	public static final int DIO_DRIVE_LEFTENC_A = 0;
+	public static final int DIO_DRIVE_LEFTENC_B = 1;
+	public static final int DIO_DRIVE_RIGHTENC_A = 2;
+	public static final int DIO_DRIVE_RIGHTENC_B = 3;
+	
+	// Limit Switches
+	public static final int DIO_ARM_BOTLIM = 4;
+	public static final int DIO_ARM_TOPLIM = 5;
 	
 }
