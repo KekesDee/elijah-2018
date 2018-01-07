@@ -18,13 +18,13 @@ public class ControlledLift extends Command {
 	double time_lim;
 	double speed;
 	
-    public ControlledLift(double speed, int pos_index) {
+    public ControlledLift(double speed, double time_lim, int pos_index) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.liftarm);
     	mytimer = new Timer();
-    	time_lim = 0;
     	reach_pos = false;
+    	this.time_lim = time_lim;
     	this.speed = speed;
     	this.pos_index = pos_index;
     }
@@ -32,13 +32,13 @@ public class ControlledLift extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	mytimer.start();
-    	reach_pos = Robot.liftarm.lift_to_pos(pos_index, speed);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	reach_pos = Robot.liftarm.lift_to_pos(pos_index, speed);
     }
-
+    
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         return (mytimer.get() >= time_lim || reach_pos);

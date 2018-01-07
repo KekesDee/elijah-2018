@@ -27,7 +27,6 @@ public class OI {
 
 	// We don't need to worry so much about magic numbers here, since we are keeping
 	// all of the button code together
-	private Button exampleButton = new JoystickButton(driveStick, 0);
 	
 	//x
 	private Button go_to_switch = new JoystickButton(driveStick, 2);
@@ -36,7 +35,8 @@ public class OI {
 	//start
 	private Button go_to_origin = new JoystickButton(driveStick, 7);
 	
-	private static double speed = 0.25;
+	private static double LR_speed = 0.25;
+	private static double LR_time_lim = 2;
 	
 
 	public OI() {
@@ -46,9 +46,9 @@ public class OI {
 		 *it moves (lowers/lift) the arm to the corresponding position of the button pressed, regardless of the current
 		 *position of the arm
 		*/
-		go_to_switch.whenPressed(new ControlledLift (speed, RobotMap.DIO_ARM_SWITCH));
-		go_to_scale.whenPressed(new ControlledLift (speed, RobotMap.DIO_ARM_SCALE));
-		go_to_origin.whenPressed(new ControlledLift (speed, RobotMap.DIO_ARM_ORIGIN));
+		go_to_switch.whenPressed(new ControlledLift (LR_speed, LR_time_lim, RobotMap.DIO_ARM_SWITCH));
+		go_to_scale.whenPressed(new ControlledLift (LR_speed, LR_time_lim, RobotMap.DIO_ARM_SCALE));
+		go_to_origin.whenPressed(new ControlledLift (LR_speed, LR_time_lim, RobotMap.DIO_ARM_ORIGIN));
 	
 	}
 
