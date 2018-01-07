@@ -8,11 +8,11 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *command for intaking cubes
  */
-public class IntakeIn extends Command {
+public class IntakeInWithX extends Command {
 	private static final double SPEED = 0.3;
 	DigitalInput limit;
 	
-    public IntakeIn() {
+    public IntakeInWithX() {
     	requires(Robot.m_intake);
     }
 

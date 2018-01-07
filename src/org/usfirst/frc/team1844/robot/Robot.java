@@ -28,6 +28,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 	public static DriveTrain m_drivetrain;
 	public static Intake m_intake;
+	public static Climber m_climber;
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -50,6 +51,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		m_drivetrain = new DriveTrain();
 		m_intake = new Intake();
+		m_climber = new Climber();
 		// m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);

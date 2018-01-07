@@ -7,9 +7,8 @@
 
 package org.usfirst.frc.team1844.robot;
 
-import org.usfirst.frc.team1844.robot.commands.Intake;
-import org.usfirst.frc.team1844.robot.commands.IntakeIn;
-import org.usfirst.frc.team1844.robot.commands.IntakeOut;
+import org.usfirst.frc.team1844.robot.commands.IntakeInWithX;
+import org.usfirst.frc.team1844.robot.commands.IntakeOutWithY;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -23,25 +22,23 @@ public class OI {
 
 	private XboxController driveStick = new XboxController(0);
 
-
 	// We don't need to worry so much about magic numbers here, since we are keeping
 	// all of the button code together.
 
-	private Button intakeIn = new JoystickButton(driveStick,4);
-	private Button intakeOut = new JoystickButton(driveStick,5);
+	private Button intakeIn = new JoystickButton(driveStick, 4);
+	private Button intakeOut = new JoystickButton(driveStick, 5);
 
 	public OI() {
-		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.		
-		//exampleButton.whenPressed(new Intake());
-		
-		intakeIn.whileHeld(new IntakeIn());
-		intakeOut.whileHeld(new IntakeOut());
-		
+		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.
+		// exampleButton.whenPressed(new Intake());
+
+		intakeIn.whileHeld(new IntakeInWithX());
+		intakeOut.whileHeld(new IntakeOutWithY());
+
 	}
 
-	public XboxController getDriverJoystick() 
-	{
-		
+	public XboxController getDriverJoystick() {
+
 		return driveStick;
 	}
 }
