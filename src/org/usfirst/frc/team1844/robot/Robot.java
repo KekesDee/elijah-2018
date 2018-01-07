@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team1844.robot;
 
+import org.usfirst.frc.team1844.robot.subsystems.LiftArm;
+
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -22,12 +24,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
-	// Adding comment just to see if it works
-	// TODO Delete this comment ^
 	// public static final ExampleSubsystem kExampleSubsystem
 	// = new ExampleSubsystem();
 	public static OI m_oi;
-
+	public static LiftArm liftarm;
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -48,6 +49,7 @@ public class Robot extends TimedRobot {
 		RobotConstants.repopulatePrefs(m_robotPrefs);
 
 		m_oi = new OI();
+		liftarm = new LiftArm();
 		// m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
