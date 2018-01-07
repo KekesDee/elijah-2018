@@ -28,14 +28,11 @@ public class Robot extends TimedRobot {
 
 	// public static final ExampleSubsystem kExampleSubsystem
 	// = new ExampleSubsystem();
-	public static OI m_oi;
 	public static LiftArm liftarm;
-
 
 	public static OI m_oi;
 	public static DriveTrain m_drivetrain;
 
->>>>>>> master
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -56,11 +53,9 @@ public class Robot extends TimedRobot {
 		RobotConstants.repopulatePrefs(m_robotPrefs);
 
 		m_oi = new OI();
-<<<<<<< HEAD
+
 		liftarm = new LiftArm();
-=======
 		m_drivetrain = new DriveTrain();
->>>>>>> master
 		// m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);

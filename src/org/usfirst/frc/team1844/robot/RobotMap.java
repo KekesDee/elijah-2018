@@ -25,7 +25,6 @@ public class RobotMap {
 	//				PCM_SHOOTER_HOOD
 	//				RELAY_VISION_LED
 	
-<<<<<<< HEAD
 	//Motors
 	public static final int Lift_Motor_one = 7;
 	public static final int Lift_Motor_two = 8;
@@ -33,7 +32,6 @@ public class RobotMap {
 	//Encoders
 	public static final int Lift_Encoder = 6;
 
-=======
 	// Motors
 	public static final int CAN_DRIVE_FLMOTOR = 0;
 	public static final int CAN_DRIVE_BLMOTOR = 1;
@@ -55,10 +53,11 @@ public class RobotMap {
 	public static final int DIO_DRIVE_LEFTENC_B = 1;
 	public static final int DIO_DRIVE_RIGHTENC_A = 2;
 	public static final int DIO_DRIVE_RIGHTENC_B = 3;
->>>>>>> master
 	
 	// Limit Switches
-	public static final int DIO_ARM_BOTLIM = 4;
-	public static final int DIO_ARM_TOPLIM = 5;
+	public static final int DIO_ARM_SCALE = 4;
+	public static final int DIO_ARM_SWITCH = 5;
+	//this is not to be connected to a limit switch, but only serves as a place bolder
+	public static final int DIO_ARM_ORIGIN = 0;
 	
 }

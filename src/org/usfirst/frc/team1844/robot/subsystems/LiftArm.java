@@ -6,6 +6,7 @@ import org.usfirst.frc.team1844.robot.RobotMap;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.SpeedController;
@@ -20,10 +21,17 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class LiftArm extends Subsystem {
 
 	
-	protected SpeedController LM1;
-	protected SpeedController LM2;
-	protected SpeedControllerGroup LMGroup;
+	private SpeedController LM1;
+	private SpeedController LM2;
+	private SpeedControllerGroup LMGroup;
 	
+	private DigitalInput switch_pos;
+	private DigitalInput scale_pos;
+	private boolean at_switch, at_scale;
+	private double time_to_switch, time_to_scale, time_scale_to_switch;
+	private Timer timer;
+	private boolean start_timer;
+
 	//if we are using encoders:
 	//protected Encoder lmenc;	
 	//private PIDController LMPID;
@@ -40,6 +48,8 @@ public class LiftArm extends Subsystem {
 	
     public void initDefaultCommand() {
        one_motor = false;
+       at_switch = false; at_scale = false; start_timer = false;
+       time_to_switch = 0; time_to_scale = 0; time_scale_to_switch = 0;
      //  Break_PID = false;
        
        LM1 = new WPI_TalonSRX (RobotMap.Lift_Motor_one);
@@ -48,8 +58,11 @@ public class LiftArm extends Subsystem {
       // lmenc = new Encoder (RobotMap.Lift_Motor_one, RobotMap.Lift_Motor_two, false, EncodingType.k4X);
      
        LMGroup = new SpeedControllerGroup (LM1, LM2);
+       switch_pos = new DigitalInput(RobotMap.DIO_ARM_SWITCH);
+       scale_pos = new DigitalInput(RobotMap.DIO_ARM_SCALE);
        
-      // timer = new Timer();
+       
+       timer = new Timer();
       // LMPID = new PIDController (Kp, Ki, Kd, lmenc, LMGroup);
        //LMPID.setAbsoluteTolerance(1);
        //LMPID.setOutputRange(-1.0, 1.0);
@@ -59,12 +72,17 @@ public class LiftArm extends Subsystem {
     public void set_one_motor()
     {
     	one_motor = true;
+    	at_switch = false; at_scale = false; start_timer = false;
+        time_to_switch = 0; time_to_scale = 0; time_scale_to_switch = 0;
+        
     	LM1 = new WPI_TalonSRX (RobotMap.Lift_Motor_one);
     	//Break_PID = false;
     	
+    	 switch_pos = new DigitalInput(RobotMap.DIO_ARM_SWITCH);
+         scale_pos = new DigitalInput(RobotMap.DIO_ARM_SCALE);
     	//lmenc = new Encoder (RobotMap.Lift_Motor_one, RobotMap.Lift_Motor_one, false, EncodingType.k4X);
     	
-        //timer = new Timer();
+        timer = new Timer();
         //LMPID = new PIDController (Kp, Ki, Kd, lmenc, LM1);
         //LMPID.setAbsoluteTolerance(1);
         //LMPID.setOutputRange(-1.0, 1.0);
@@ -112,6 +130,108 @@ public class LiftArm extends Subsystem {
     	else
     		LMGroup.stopMotor();
     }
+    
+    
+    public boolean lift_to_pos (int pos_index, double speed)
+    {
+    	if(pos_index == RobotMap.DIO_ARM_SWITCH)
+    	{
+    		//from origin up to switch
+    		if(!at_scale && !at_switch)
+    			set_speed(speed);
+    		//from scale lower to switch
+    		else if (!at_switch && at_scale)
+    			 set_speed(-speed);
+    		else
+    			return true;
+    		
+    		//since we do not want to reset timer every time in the execute in command
+    		if(!start_timer)
+    		{
+    			timer.reset();
+    			start_timer = true;
+    		}
+    		
+    		//assume limit switch setup as false from default
+    		if(switch_pos.get())
+    		{
+	    		stopMotor();
+	    		
+	    		if(!at_scale && !at_switch)
+	    			time_to_switch = timer.get();
+	    		else if(!at_switch && at_scale)
+	    			time_scale_to_switch = timer.get();
+	    		
+	    		at_switch = true;
+	    		at_scale = false;
+	    		start_timer = false;
+    		}
+    	}
+    	
+    	else if(pos_index == RobotMap.DIO_ARM_SCALE)
+    	{
+    		if (at_scale && !at_switch)
+        		return true;
+    		
+    		//from origin up to scale && from switch up to scale, both are up!
+    		set_speed(speed);
+    		
+    		if(!start_timer)
+    		{
+    			timer.reset();
+    			start_timer = true;
+    		}
+    		
+    		//assume limit switch setup as false from default
+    		if(switch_pos.get())
+    		{
+	    		stopMotor();
+	    		
+	    		if(!at_scale && !at_switch)
+	    			time_to_scale = timer.get();
+	    		else if(at_switch && !at_scale)
+	    			time_scale_to_switch = timer.get();
+	    			
+	    		at_switch = false;
+	    		at_scale = true;
+	    		start_timer = false;
+    		}
+    	}
+    	
+    	else if(pos_index == RobotMap.DIO_ARM_ORIGIN)
+    	{
+    		if(!start_timer)
+    		{
+    			timer.reset();
+    			start_timer = true;
+    		}
+    		
+    		set_speed(-speed);
+    		
+    		if(at_scale)
+    		{
+    			if(timer.get() >= time_to_scale)
+    			{
+    				stopMotor();
+    				at_scale = false;
+    				start_timer = false;
+    			}
+    		}
+    		
+    		else if(at_switch)
+    		{
+    			if(timer.get() >= time_to_switch)
+    			{
+    				stopMotor();
+    				at_scale = false;
+    				start_timer = false;
+    			}
+    		}
+    	}
+    	
+    	return true;
+    }
+    
     
     /*										
     private double Compute_PID (double desired_outut, double actual_output, double delta_t)

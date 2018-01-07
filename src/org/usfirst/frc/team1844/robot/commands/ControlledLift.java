@@ -12,22 +12,27 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ControlledLift extends Command {
 
 	Timer mytimer;
+	int pos_index;
+	boolean reach_pos;
+	
 	double time_lim;
 	double speed;
 	
-    public ControlledLift(double speed) {
+    public ControlledLift(double speed, int pos_index) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.liftarm);
     	mytimer = new Timer();
     	time_lim = 0;
+    	reach_pos = false;
     	this.speed = speed;
+    	this.pos_index = pos_index;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	mytimer.start();
-    	Robot.liftarm.set_speed(speed);
+    	reach_pos = Robot.liftarm.lift_to_pos(pos_index, speed);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,7 +41,7 @@ public class ControlledLift extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return mytimer.get() >= time_lim;
+        return (mytimer.get() >= time_lim || reach_pos);
     }
 
     // Called once after isFinished returns true

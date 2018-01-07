@@ -7,6 +7,10 @@
 
 package org.usfirst.frc.team1844.robot;
 
+import org.usfirst.frc.team1844.robot.commands.BlindLift;
+import org.usfirst.frc.team1844.robot.commands.ControlledLift;
+import org.usfirst.frc.team1844.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -24,9 +28,28 @@ public class OI {
 	// We don't need to worry so much about magic numbers here, since we are keeping
 	// all of the button code together
 	private Button exampleButton = new JoystickButton(driveStick, 0);
+	
+	//x
+	private Button go_to_switch = new JoystickButton(driveStick, 2);
+	//y
+	private Button go_to_scale = new JoystickButton(driveStick, 3);
+	//start
+	private Button go_to_origin = new JoystickButton(driveStick, 7);
+	
+	private static double speed = 0.25;
+	
 
 	public OI() {
 		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.
+		
+		/*the controlled lift command works like this:
+		 *it moves (lowers/lift) the arm to the corresponding position of the button pressed, regardless of the current
+		 *position of the arm
+		*/
+		go_to_switch.whenPressed(new ControlledLift (speed, RobotMap.DIO_ARM_SWITCH));
+		go_to_scale.whenPressed(new ControlledLift (speed, RobotMap.DIO_ARM_SCALE));
+		go_to_origin.whenPressed(new ControlledLift (speed, RobotMap.DIO_ARM_ORIGIN));
+	
 	}
 
 	public XboxController getDriverJoystick() {
