@@ -31,6 +31,7 @@ public class RobotConstants {
 	 */
 	public static void loadPrefs(Preferences prefs) {
 		exampleValue = prefs.getDouble("Example", 0.0);
+		
 	}
 
 	/**
