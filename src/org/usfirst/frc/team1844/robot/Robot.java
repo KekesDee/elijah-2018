@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team1844.robot;
 
+import org.usfirst.frc.team1844.robot.subsystems.LiftArm;
 import org.usfirst.frc.team1844.robot.subsystems.*;
 
 import edu.wpi.first.wpilibj.Preferences;
@@ -24,6 +25,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+
+	// public static final ExampleSubsystem kExampleSubsystem
+	// = new ExampleSubsystem();
+	public static LiftArm liftarm;
 
 	public static OI m_oi;
 	public static DriveTrain m_drivetrain;
@@ -49,6 +54,8 @@ public class Robot extends TimedRobot {
 		RobotConstants.repopulatePrefs(m_robotPrefs);
 
 		m_oi = new OI();
+
+		liftarm = new LiftArm();
 		m_drivetrain = new DriveTrain();
 		m_intake = new Intake();
 		m_climber = new Climber();

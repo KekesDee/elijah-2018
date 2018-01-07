@@ -26,6 +26,13 @@ public class RobotMap {
 	//				RELAY_VISION_LED
 	//
 	
+	//Motors
+	public static final int Lift_Motor_one = 7;
+	public static final int Lift_Motor_two = 8;
+	
+	//Encoders
+	public static final int Lift_Encoder = 6;
+
 	// Motors
 	public static final int CAN_DRIVE_FLMOTOR = 0;
 	public static final int CAN_DRIVE_BLMOTOR = 1;
@@ -51,6 +58,10 @@ public class RobotMap {
 	// Limit Switches
 	public static final int DIO_ARM_BOTLIM = 4;
 	public static final int DIO_ARM_TOPLIM = 5;
-	public static final int DIO_INTAKE_LIM = 6;
+	public static final int DIO_ARM_SCALE = 6;
+	public static final int DIO_ARM_SWITCH = 7;
+	//this is not to be connected to a limit switch, but only serves as a place bolder
+	public static final int DIO_ARM_ORIGIN = 0;
+	public static final int DIO_INTAKE_LIM = 8;
 	
 }

@@ -22,8 +22,9 @@ public class TeleopDrive extends Command {
 
 	// Called repeatedly when thijs Command is scheduled to run
 	protected void execute() {
-    	Robot.m_drivetrain.tankdrive(Robot.m_oi.getDriverJoystick().getY(Hand.kLeft),
-    					Robot.m_oi.getDriverJoystick().getY(Hand.kRight));
+    	Robot.m_drivetrain.drive(
+    			Math.pow(Robot.m_oi.getDriverJoystick().getRawAxis(5), 3),
+    			Math.pow(Robot.m_oi.getDriverJoystick().getRawAxis(4), 3));
     }
 
 	// Make this return true when this Command no longer needs to run execute()
