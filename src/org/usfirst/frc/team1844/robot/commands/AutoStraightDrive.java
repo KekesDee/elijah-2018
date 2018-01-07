@@ -15,6 +15,7 @@ public class AutoStraightDrive extends Command {
     public AutoStraightDrive(double dist, double timeout) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.m_drivetrain);
     	this.dist = dist;
     	this.timeout = timeout;
     }
@@ -22,7 +23,7 @@ public class AutoStraightDrive extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	setTimeout(timeout);
-    	Robot.m_drivetrain.setdist(dist);
+    	Robot.m_drivetrain.setDist(dist);
     	Robot.m_drivetrain.PIDDrive();
     }
 
@@ -39,6 +40,7 @@ public class AutoStraightDrive extends Command {
     protected void end() {
     	Robot.m_drivetrain.PIDStop();
     	Robot.m_drivetrain.stop();
+    	Robot.m_drivetrain.PIDReset();
     }
 
     // Called when another command which requires one or more of the same
