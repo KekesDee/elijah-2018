@@ -14,15 +14,25 @@ package org.usfirst.frc.team1844.robot;
  * floating around.
  */
 public class RobotMap {
-		
-		//MOTORS
-		public static final int IntakeLeft = 4;
-		public static final int IntakeRight = 5;
-		public static final int IntakeTop = 6;
-		
-		public static final int limitSwitch = 0;
-		
-		
+	//MOTORS
+	public static final int LeftDrive1 = 0;
+	public static final int LeftDrive2 = 1;
+	public static final int RightDrive1 = 2;
+	public static final int RightDrive2 = 3;
+	
+	//ENCODERS
+	public static final int LeftEncoder1 = 1;
+	public static final int LeftEncoder2 = 2;
+	public static final int RightEncoder1 = 3;
+	public static final int RightEncoder2 = 4;
+	
+	//MOTORS
+	public static final int IntakeLeft = 4;
+	public static final int IntakeRight = 5;
+	public static final int IntakeTop = 6;
+	
+	public static final int limitSwitch = 0;
+	
 	// Let's establish a naming convention here.
 	// Each constant will be of the format INTERFACE_SUBSYSTEM_COMPONENT.
 	// Remember also that all of these should be public static final ints.
