@@ -32,7 +32,8 @@ public class Robot extends TimedRobot {
 
 	public static OI m_oi;
 	public static DriveTrain m_drivetrain;
-
+	public static Intake m_intake;
+	public static Climber m_climber;
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -40,7 +41,7 @@ public class Robot extends TimedRobot {
 
 	/**
 	 * This function is run when the robot is first started up and should be used
-	 * for any initialization code.
+	 * for any initialization code
 	 */
 	@Override
 	public void robotInit() {
@@ -56,6 +57,8 @@ public class Robot extends TimedRobot {
 
 		liftarm = new LiftArm();
 		m_drivetrain = new DriveTrain();
+		m_intake = new Intake();
+		m_climber = new Climber();
 		// m_chooser.addDefault("Default Auto", new ExampleCommand());
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);

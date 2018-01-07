@@ -10,25 +10,26 @@ package org.usfirst.frc.team1844.robot;
 import  org.usfirst.frc.team1844.robot.commands.*;
 import org.usfirst.frc.team1844.robot.RobotMap;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
- * interface to the commands and command groups that allow control of the robot.
+ * interface to the commands and command groups that allow control of the robot
  */
 public class OI {
 
 	private XboxController driveStick = new XboxController(0);
-
 
 	// We don't need to worry so much about magic numbers here, since we are keeping
 	// all of the button code together
 	  
 	private Button AButton = new JoystickButton(driveStick, 0);
 	private Button BButton = new JoystickButton(driveStick, 1);
+  
+	private Button intakeIn = new JoystickButton(driveStick, 4);
+	private Button intakeOut = new JoystickButton(driveStick, 5);
   
 	//x
 	private Button go_to_switch = new JoystickButton(driveStick, 2);
@@ -53,9 +54,12 @@ public class OI {
 		go_to_origin.whenPressed(new ControlledLift (LR_speed, LR_time_lim, RobotMap.DIO_ARM_ORIGIN));
     AButton.whenPressed(new AutoStraightDrive(24, 3));
 		BButton.whenPressed(new TurntoAngle(90.0, 3.0));
+   	intakeIn.whileHeld(new IntakeInWithX());
+		intakeOut.whileHeld(new IntakeOutWithY());
 	}
 
 	public XboxController getDriverJoystick() {
+
 		return driveStick;
 	}
 }
