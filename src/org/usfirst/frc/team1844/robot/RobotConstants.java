@@ -17,9 +17,11 @@ public class RobotConstants {
 	public static final double WHEEL_DIA = 3.97; // 4" Coulsons
 	public static final double GEARBOX_REDUCTION = 1;
 	public static final double ENCODER_DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI / ENCODER_PPR * GEARBOX_REDUCTION;
-
 	public static final double RADIUS_OF_ROBOT = 13; // inches
-	public static double exampleValue;
+
+	public static double driveP;
+	public static double driveI;
+	public static double driveD;
 
 	/**
 	 * Load all of the preferences from the file saved on the roboRIO. These
@@ -27,11 +29,13 @@ public class RobotConstants {
 	 * SmartDashboard, and can be changed without having to recompile and reupload
 	 * code to the robot.
 	 * 
-	 * @param prefs the {@link Preferences} to read the date from
+	 * @param prefs
+	 *            the {@link Preferences} to read the date from
 	 */
 	public static void loadPrefs(Preferences prefs) {
-		exampleValue = prefs.getDouble("Example", 0.0);
-		
+		driveP = prefs.getDouble("Drive P", 0.1);
+		driveI = prefs.getDouble("Drive I", 0.0);
+		driveD = prefs.getDouble("Drive D", 0.0);
 	}
 
 	/**
@@ -45,7 +49,9 @@ public class RobotConstants {
 	 *            the {@link Preferences} to write the values to
 	 */
 	public static void repopulatePrefs(Preferences prefs) {
-		prefs.putDouble("Example", exampleValue);
+		prefs.putDouble("Drive P", driveP);
+		prefs.putDouble("Drive I", driveI);
+		prefs.putDouble("Drive D", driveD);
 	}
 
 }

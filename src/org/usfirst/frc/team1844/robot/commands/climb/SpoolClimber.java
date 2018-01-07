@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1844.robot.commands;
+package org.usfirst.frc.team1844.robot.commands.climb;
 
 import org.usfirst.frc.team1844.robot.Robot;
 
@@ -7,10 +7,13 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ClimbWithJoystick extends Command {
+public class SpoolClimber extends Command {
+
+	private double m_speed;
 	
-    public ClimbWithJoystick() {
-    	requires(Robot.m_climber);
+    public SpoolClimber(double speed) {
+        requires(Robot.m_climber);
+        m_speed = speed;
     }
 
     // Called just before this Command runs the first time
@@ -19,9 +22,7 @@ public class ClimbWithJoystick extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	double speed = Robot.m_oi.getDriverJoystick().getRawAxis(2) - Robot.m_oi.getDriverJoystick().getRawAxis(3);
-    	
-    	Robot.m_climber.climb(speed);
+    	Robot.m_climber.setSpeed(m_speed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -31,6 +32,7 @@ public class ClimbWithJoystick extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.m_climber.stop();
     }
 
     // Called when another command which requires one or more of the same

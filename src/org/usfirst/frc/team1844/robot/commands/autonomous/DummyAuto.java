@@ -1,4 +1,4 @@
-package org.usfirst.frc.team1844.robot.commands;
+package org.usfirst.frc.team1844.robot.commands.autonomous;
 
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.CommandGroup;

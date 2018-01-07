@@ -4,38 +4,44 @@ import org.usfirst.frc.team1844.robot.RobotMap;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *Intake subsystem
+ * Intake subsystem
  */
 public class Intake extends Subsystem {
 
-    SpeedController leftIntake;
-    SpeedController rightIntake;
-    SpeedController topIntake;
-   
-    public void initDefaultCommand() {
-        leftIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
-        rightIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
-        topIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_TOP);
-    }
-    
-    public void setMotorSpeed (double speed)
-    {
-    	leftIntake.set(speed);
-    	rightIntake.set(speed);
-    	topIntake.set(speed);
-    	
-    }
-    
-    public void stopMotors()
-    {
-    	leftIntake.stopMotor();
-    	rightIntake.stopMotor();
-    	topIntake.stopMotor();
-    }
-        
-}
+	private SpeedController m_leftMotor;
+	private SpeedController m_rightMotor;
+	// SpeedController m_topMotor;
+	private DigitalInput m_cubeSwitch;
 
+	public Intake() {
+		m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
+		m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
+		// m_topMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_TOP);
+		
+		m_cubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_LIM);
+	}
+
+	public void initDefaultCommand() {
+	}
+
+	public void setSpeed(double speed) {
+		m_leftMotor.set(speed);
+		m_rightMotor.set(speed);
+		// m_topMotor.set(speed);
+	}
+
+	public void stopMotors() {
+		m_leftMotor.stopMotor();
+		m_rightMotor.stopMotor();
+		// m_topMotor.stopMotor();
+	}
+
+	public boolean getHasCube() {
+		return m_cubeSwitch.get();
+	}
+}

@@ -1,6 +1,10 @@
 package org.usfirst.frc.team1844.robot.subsystems;
 
-import edu.wpi.first.wpilibj.SpeedController;
+import org.usfirst.frc.team1844.robot.RobotMap;
+
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+
+import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -8,26 +12,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+	private SpeedControllerGroup m_motors;
 
-	SpeedController motor1, motor2;
-	
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    
-    public void climb(double speed)
-    {
-    	motor1.set(speed);
-    	motor2.set(speed);
-    }
-    
-    public void stop()
-    {
-    	motor1.stopMotor();
-    	motor2.stopMotor();
-    }
+	public Climber() {
+		m_motors = new SpeedControllerGroup(new WPI_TalonSRX(RobotMap.CAN_CLIMBER_LEFTMOTOR),
+				new WPI_TalonSRX(RobotMap.CAN_CLIMBER_RIGHTMOTOR));
+	}
+
+	public void initDefaultCommand() {
+	}
+
+	public void setSpeed(double speed) {
+		m_motors.set(speed);
+	}
+
+	public void stop() {
+		m_motors.stopMotor();
+	}
 }
-
