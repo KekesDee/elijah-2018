@@ -38,15 +38,15 @@ public class DriveTrain extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
 		//TODO add this later^
-    	fl = new WPI_TalonSRX(RobotMap.LeftDrive1);
-    	bl = new WPI_TalonSRX(RobotMap.LeftDrive2);
-    	fr = new WPI_TalonSRX(RobotMap.RightDrive1);
-    	br = new WPI_TalonSRX (RobotMap.RightDrive2);
+    	fl = new WPI_TalonSRX(RobotMap.CAN_DRIVE_FLMOTOR);
+    	bl = new WPI_TalonSRX(RobotMap.CAN_DRIVE_BLMOTOR);
+    	fr = new WPI_TalonSRX(RobotMap.CAN_DRIVE_FRMOTOR);
+    	br = new WPI_TalonSRX (RobotMap.CAN_DRIVE_BRMOTOR);
     	
     	//Encoders
-    	Lenc = new Encoder (RobotMap.LeftEncoder1, RobotMap.LeftEncoder2,
+    	Lenc = new Encoder (RobotMap.DIO_DRIVE_LEFTENC_A, RobotMap.DIO_DRIVE_LEFTENC_B,
 			/*change this if needed*/ true, EncodingType.k4X);
-    	Renc = new Encoder (RobotMap.RightEncoder1, RobotMap.RightEncoder2,
+    	Renc = new Encoder (RobotMap.DIO_DRIVE_RIGHTENC_A, RobotMap.DIO_DRIVE_RIGHTENC_B,
     			false, EncodingType.k4X);
     	Lenc.setPIDSourceType(PIDSourceType.kDisplacement);
     	Renc.setPIDSourceType(PIDSourceType.kDisplacement);

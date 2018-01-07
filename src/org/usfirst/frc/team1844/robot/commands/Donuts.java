@@ -25,7 +25,7 @@ public class Donuts extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.spin();
+    	Robot.m_drivetrain.spin();
     }
 
     protected boolean isFinished() {
@@ -34,7 +34,7 @@ public class Donuts extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.stop();
+    	Robot.m_drivetrain.stop();
     }
 
     // Called when another command which requires one or more of the same

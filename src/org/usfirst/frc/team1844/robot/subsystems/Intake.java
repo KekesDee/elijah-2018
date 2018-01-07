@@ -19,9 +19,9 @@ public class Intake extends Subsystem {
     DigitalInput limit;
 
     public void initDefaultCommand() {
-        leftIntake = new WPI_TalonSRX(RobotMap.IntakeLeft);
-        rightIntake = new WPI_TalonSRX(RobotMap.IntakeRight);
-        topIntake = new WPI_TalonSRX(RobotMap.IntakeTop);
+        leftIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
+        rightIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
+        topIntake = new WPI_TalonSRX(RobotMap.CAN_INTAKE_TOP);
     }
     
     public void setMotorSpeed (double speed)
