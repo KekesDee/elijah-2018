@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
- *
+ *command for intaking cubes
  */
 public class IntakeIn extends Command {
 	private static final double SPEED = 0.3;

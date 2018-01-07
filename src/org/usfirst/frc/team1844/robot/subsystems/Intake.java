@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ *Intake subsystem
  */
 public class Intake extends Subsystem {
 
