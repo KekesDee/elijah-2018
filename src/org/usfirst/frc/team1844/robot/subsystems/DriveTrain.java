@@ -8,6 +8,8 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.PIDController;
+import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,9 +28,9 @@ public class DriveTrain extends Subsystem {
 	SpeedController br;
 	SpeedControllerGroup SCGLeft;
 	SpeedControllerGroup SCGRight;
-	DifferentialDrive drive;
 	//private static final 
-	
+	PIDController driveleftPID;
+	PIDController driverightPID;
 	Encoder Lenc;
 	Encoder Renc;
 
@@ -46,18 +48,50 @@ public class DriveTrain extends Subsystem {
 			/*change this if needed*/ true, EncodingType.k4X);
     	Renc = new Encoder (RobotMap.RightEncoder1, RobotMap.RightEncoder2,
     			false, EncodingType.k4X);
+    	Lenc.setPIDSourceType(PIDSourceType.kDisplacement);
+    	Renc.setPIDSourceType(PIDSourceType.kDisplacement);
+    	
     	SCGLeft = new SpeedControllerGroup(fl, bl);
     	SCGRight = new SpeedControllerGroup(fr, br);
     	SCGLeft.setInverted(true);
-    	drive = new DifferentialDrive(SCGLeft, SCGRight);    	
+    	
+    	driveleftPID = new PIDController (0.1, 0, 0, Lenc, SCGLeft);
+    	driverightPID = new PIDController (0.1, 0, 0, Renc, SCGRight);
+    	driveleftPID.setAbsoluteTolerance(1);
+    	driverightPID.setAbsoluteTolerance(1);
+    	driveleftPID.setOutputRange(-1.0, 1.0);
+    	driverightPID.setOutputRange(-1.0, 1.0);
+    	
     }
     public void spin()
     {
-    	drive.tankDrive(-1, 1);
+    	SCGLeft.set(-1);
+    	SCGRight.set(1);
     }
     public void stop()
     {
-    	drive.stopMotor();
+    	SCGLeft.set(0);
+    	SCGRight.set(0);
+    }
+    public void tankdrive(double leftspeed, double rightspeed)
+    {
+    	SCGLeft.set(leftspeed);
+    	SCGRight.set(rightspeed);
+    }
+    public void setdist(double targetdist)
+    {
+    	driveleftPID.setSetpoint(targetdist);
+    	driverightPID.setSetpoint(targetdist);
+    }
+    public void PIDDrive()
+    {
+    	driveleftPID.enable();
+    	driverightPID.enable();
+    }
+    public void PIDStop()
+    {
+    	driveleftPID.disable();
+    	driverightPID.disable();
     }
 }
 
