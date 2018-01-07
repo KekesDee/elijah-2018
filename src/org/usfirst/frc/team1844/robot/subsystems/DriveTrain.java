@@ -1,5 +1,6 @@
 package org.usfirst.frc.team1844.robot.subsystems;
 
+import org.usfirst.frc.team1844.robot.RobotConstants;
 import org.usfirst.frc.team1844.robot.RobotMap;
 
 import com.ctre.CANTalon;
@@ -59,8 +60,8 @@ public class DriveTrain extends Subsystem {
     	driverightPID = new PIDController (0.1, 0, 0, Renc, SCGRight);
     	driveleftPID.setAbsoluteTolerance(1);
     	driverightPID.setAbsoluteTolerance(1);
-    	driveleftPID.setOutputRange(-1.0, 1.0);
-    	driverightPID.setOutputRange(-1.0, 1.0);
+    	driveleftPID.setOutputRange(-0.8, 0.8);
+    	driverightPID.setOutputRange(-0.8, 0.8);
     	
     }
     public void spin()
@@ -73,25 +74,37 @@ public class DriveTrain extends Subsystem {
     	SCGLeft.set(0);
     	SCGRight.set(0);
     }
-    public void tankdrive(double leftspeed, double rightspeed)
+    public void drive(double forwardspeed, double turnspeed)
     {
-    	SCGLeft.set(leftspeed);
-    	SCGRight.set(rightspeed);
+    	SCGLeft.set(forwardspeed+turnspeed);
+    	SCGRight.set(forwardspeed-turnspeed);
     }
-    public void setdist(double targetdist)
+    public void setDist(double targetdist)
     {
-    	driveleftPID.setSetpoint(targetdist);
-    	driverightPID.setSetpoint(targetdist);
+    	driveleftPID.setSetpoint(targetdist/RobotConstants.ENCODER_DISTANCE_PER_PULSE);
+    	driverightPID.setSetpoint(targetdist/RobotConstants.ENCODER_DISTANCE_PER_PULSE);
     }
     public void PIDDrive()
     {
     	driveleftPID.enable();
     	driverightPID.enable();
     }
+    public void setAngle (double targetangle)
+    {
+    	double targetrad = Math.toRadians(targetangle);
+    	double targetdist = targetrad*RobotConstants.RADIUS_OF_ROBOT;
+    	driveleftPID.setSetpoint(-targetdist/RobotConstants.ENCODER_DISTANCE_PER_PULSE);
+    	driverightPID.setSetpoint(targetdist/RobotConstants.ENCODER_DISTANCE_PER_PULSE);
+    }
     public void PIDStop()
     {
     	driveleftPID.disable();
     	driverightPID.disable();
+    }
+    public void PIDReset()
+    {
+    	driveleftPID.reset();
+    	driverightPID.reset();
     }
 }
 
