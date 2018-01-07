@@ -13,7 +13,7 @@ public class TeleopDrive extends Command {
 	public TeleopDrive() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		requires(Robot.drivetrain);
+		requires(Robot.m_drivetrain);
 	}
 
 	// Called just before this Command runs the first time
@@ -22,7 +22,7 @@ public class TeleopDrive extends Command {
 
 	// Called repeatedly when thijs Command is scheduled to run
 	protected void execute() {
-    	Robot.drivetrain.tankdrive(Robot.m_oi.getDriverJoystick().getY(Hand.kLeft),
+    	Robot.m_drivetrain.tankdrive(Robot.m_oi.getDriverJoystick().getY(Hand.kLeft),
     					Robot.m_oi.getDriverJoystick().getY(Hand.kRight));
     }
 

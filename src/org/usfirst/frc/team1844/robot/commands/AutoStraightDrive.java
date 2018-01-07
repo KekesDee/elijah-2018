@@ -22,8 +22,8 @@ public class AutoStraightDrive extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	setTimeout(timeout);
-    	Robot.drivetrain.setdist(dist);
-    	Robot.drivetrain.PIDDrive();
+    	Robot.m_drivetrain.setdist(dist);
+    	Robot.m_drivetrain.PIDDrive();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,8 +37,8 @@ public class AutoStraightDrive extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.drivetrain.PIDStop();
-    	Robot.drivetrain.stop();
+    	Robot.m_drivetrain.PIDStop();
+    	Robot.m_drivetrain.stop();
     }
 
     // Called when another command which requires one or more of the same
