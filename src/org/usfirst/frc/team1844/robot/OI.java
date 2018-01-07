@@ -31,8 +31,7 @@ public class OI {
 	private Button intakeOut = new JoystickButton(driveStick,5);
 
 	public OI() {
-		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.	
-		//exampleButton.whileHeld(new Intake());	
+		// Here is where we bind buttons to commands using whileHeld, whenPressed, etc.		
 		//exampleButton.whenPressed(new Intake());
 		
 		intakeIn.whileHeld(new IntakeIn());
