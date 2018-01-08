@@ -6,7 +6,6 @@ import org.usfirst.frc.team1844.robot.commands.lift.LiftWithJoystick;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.DigitalInput;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -48,9 +47,6 @@ public class LiftArm extends Subsystem {
 
 		// lmenc = new Encoder (RobotMap.Lift_Motor_one, RobotMap.Lift_Motor_two, false,
 		// EncodingType.k4X);
-
-		WPI_TalonSRX left = new WPI_TalonSRX(RobotMap.CAN_ARM_LEFTMOTOR);
-		WPI_TalonSRX right = new WPI_TalonSRX(RobotMap.CAN_ARM_RIGHTMOTOR);
 
 		m_botSwitch = new DigitalInput(RobotMap.DIO_ARM_BOTLIM);
 		m_topSwitch = new DigitalInput(RobotMap.DIO_ARM_TOPLIM);

@@ -13,7 +13,6 @@ import org.usfirst.frc.team1844.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1844.robot.subsystems.Intake;
 import org.usfirst.frc.team1844.robot.subsystems.LiftArm;
 
-import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;

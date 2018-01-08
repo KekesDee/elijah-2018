@@ -7,10 +7,8 @@
 
 package org.usfirst.frc.team1844.robot;
 
-import org.usfirst.frc.team1844.robot.commands.driveTrain.AutoStraightDrive;
-import org.usfirst.frc.team1844.robot.commands.driveTrain.TurnToAngle;
-import org.usfirst.frc.team1844.robot.commands.intake.RunIntake;
 import org.usfirst.frc.team1844.robot.commands.intake.IntakeUntilSwitch;
+import org.usfirst.frc.team1844.robot.commands.intake.RunIntake;
 
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -27,8 +25,6 @@ public class OI {
 	// We don't need to worry so much about magic numbers here, since we are keeping
 	// all of the button code together
 
-	private Button L1 = new JoystickButton(m_driveStick, 5);				// L1 
-	private Button R1 = new JoystickButton(m_driveStick, 6);				// R1 
 	private Button intakeIn = new JoystickButton(m_driveStick, 1);			// A 
 	private Button intakeIn_Backup = new JoystickButton(m_driveStick, 3);	// X
 	private Button intakeOutSlow = new JoystickButton(m_driveStick, 2);		// B
@@ -41,9 +37,6 @@ public class OI {
 		intakeIn_Backup.whileHeld(new RunIntake(0.8));
 		intakeOutSlow.whileHeld(new RunIntake(-0.3));
 		intakeOutFast.whileHeld(new RunIntake(-0.9));
-
-//		L1.whenPressed(new AutoStraightDrive(24));
-//		R1.whenPressed(new TurnToAngle(90.0));
 	}
 
 	public XboxController getDriverJoystick() {

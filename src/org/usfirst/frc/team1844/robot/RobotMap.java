@@ -25,9 +25,6 @@ public class RobotMap {
 	//				PCM_SHOOTER_HOOD
 	//				RELAY_VISION_LED
 	//
-	
-	//Encoders
-	public static final int Lift_Encoder = 6;
 
 	// Motors
 	public static final int CAN_DRIVE_FLMOTOR = 0;
