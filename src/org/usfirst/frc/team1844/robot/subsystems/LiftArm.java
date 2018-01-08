@@ -1,6 +1,7 @@
 package org.usfirst.frc.team1844.robot.subsystems;
 
 import org.usfirst.frc.team1844.robot.RobotMap;
+import org.usfirst.frc.team1844.robot.commands.lift.LiftWithJoystick;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
@@ -17,11 +18,13 @@ public class LiftArm extends Subsystem {
 		kBottomPos, kScalePos, kSwitchPos
 	}
 
-	private SpeedControllerGroup m_motors;
+	
+
+	WPI_TalonSRX left = new WPI_TalonSRX(RobotMap.CAN_ARM_LEFTMOTOR);
+	WPI_TalonSRX right = new WPI_TalonSRX(RobotMap.CAN_ARM_RIGHTMOTOR);
 
 	private DigitalInput m_botSwitch, m_topSwitch;
-	
-	
+
 	// private DigitalInput switch_pos;
 	// private DigitalInput scale_pos;
 	// private boolean at_switch, at_scale;
@@ -46,39 +49,54 @@ public class LiftArm extends Subsystem {
 		// lmenc = new Encoder (RobotMap.Lift_Motor_one, RobotMap.Lift_Motor_two, false,
 		// EncodingType.k4X);
 
-		m_motors = new SpeedControllerGroup(new WPI_TalonSRX(RobotMap.CAN_ARM_LEFTMOTOR),
-				new WPI_TalonSRX(RobotMap.CAN_ARM_RIGHTMOTOR));
+		WPI_TalonSRX left = new WPI_TalonSRX(RobotMap.CAN_ARM_LEFTMOTOR);
+		WPI_TalonSRX right = new WPI_TalonSRX(RobotMap.CAN_ARM_RIGHTMOTOR);
+
 		m_botSwitch = new DigitalInput(RobotMap.DIO_ARM_BOTLIM);
 		m_topSwitch = new DigitalInput(RobotMap.DIO_ARM_TOPLIM);
 
 		// switch_pos = new DigitalInput(RobotMap.DIO_ARM_SWITCH);
 		// scale_pos = new DigitalInput(RobotMap.DIO_ARM_SCALE);
 
-//		timer = new Timer();
+		// timer = new Timer();
 		// LMPID = new PIDController (Kp, Ki, Kd, lmenc, LMGroup);
 		// LMPID.setAbsoluteTolerance(1);
 		// LMPID.setOutputRange(-1.0, 1.0);
 	}
 
 	public void initDefaultCommand() {
-
+		setDefaultCommand(new LiftWithJoystick());
+	}
+	
+	public boolean hit_bot()
+	{
+		//assume limit switch default is false
+		return m_botSwitch.get();
+	}
+	
+	public boolean hit_top()
+	{
+		//assume limit switch default is false
+		return m_topSwitch.get();
 	}
 
 	public void setSpeed(double speed) {
-		if (speed < 0 && m_botSwitch.get())
-			m_motors.set(0);
-		else if (speed > 0 && m_topSwitch.get())
-			m_motors.set(0);
-		else
-			m_motors.set(speed);
+		// if (speed < 0 && m_botSwitch.get())
+		// m_motors.set(0);
+		// else if (speed > 0 && m_topSwitch.get())
+		// m_motors.set(0);
+		// else
+		left.set(speed);
+		right.set(-speed);
 	}
 
 	public double getSpeed() {
-		return m_motors.get();
+		return left.get();
 	}
 
 	public void stop() {
-		m_motors.set(0);
+		left.set(0);
+		right.set(0);
 	}
 
 	// public boolean lift_to_pos(ArmPositions targetPos, double speed) {

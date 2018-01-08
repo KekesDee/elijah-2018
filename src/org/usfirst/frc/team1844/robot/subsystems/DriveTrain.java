@@ -26,6 +26,7 @@ public class DriveTrain extends Subsystem {
 	private Encoder m_rightEnc;
 
 	public DriveTrain() {
+		setDefaultCommand(new TeleopDrive());
 		// Setup the encoders
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC_A, RobotMap.DIO_DRIVE_LEFTENC_B, true, EncodingType.k4X);
 		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC_A, RobotMap.DIO_DRIVE_RIGHTENC_B, false, EncodingType.k4X);
@@ -62,8 +63,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void drive(double forwardSpeed, double turnSpeed) {
-		m_leftMotors.set(forwardSpeed + turnSpeed);
-		m_rightMotors.set(forwardSpeed - turnSpeed);
+		m_leftMotors.set(forwardSpeed - turnSpeed);
+		m_rightMotors.set(forwardSpeed + turnSpeed);
 	}
 
 	public void setTargetDistance(double targetDist) {

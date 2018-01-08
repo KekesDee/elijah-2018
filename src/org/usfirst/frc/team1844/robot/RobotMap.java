@@ -45,16 +45,15 @@ public class RobotMap {
 	public static final int CAN_CLIMBER_RIGHTMOTOR = 6;
 	
 	// Encoders
-	public static final int DIO_DRIVE_LEFTENC_A = 0;
-	public static final int DIO_DRIVE_LEFTENC_B = 1;
-	public static final int DIO_DRIVE_RIGHTENC_A = 2;
-	public static final int DIO_DRIVE_RIGHTENC_B = 3;
+	public static final int DIO_DRIVE_LEFTENC_A = 4;
+	public static final int DIO_DRIVE_LEFTENC_B = 5;
+	public static final int DIO_DRIVE_RIGHTENC_A = 6;
+	public static final int DIO_DRIVE_RIGHTENC_B = 7;
 	
 	// Limit Switches
-	public static final int DIO_ARM_BOTLIM = 4;
-	public static final int DIO_ARM_TOPLIM = 5;
-	public static final int DIO_ARM_SCALE = 6;
-	public static final int DIO_ARM_SWITCH = 7;
-	public static final int DIO_INTAKE_LIM = 8;
+	public static final int DIO_ARM_BOTLIM = 2;
+	public static final int DIO_ARM_TOPLIM = 3;
+	public static final int DIO_INTAKE_LIM_L = 0;
+	public static final int DIO_INTAKE_LIM_R = 1;
 	
 }

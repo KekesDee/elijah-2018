@@ -16,21 +16,23 @@ public class Intake extends Subsystem {
 	private SpeedController m_leftMotor;
 	private SpeedController m_rightMotor;
 	// SpeedController m_topMotor;
-	private DigitalInput m_cubeSwitch;
+	private DigitalInput m_cubeSwitchL;
+	private DigitalInput m_cubeSwitchR;
 
 	public Intake() {
 		m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 		m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
 		// m_topMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_TOP);
 		
-		m_cubeSwitch = new DigitalInput(RobotMap.DIO_INTAKE_LIM);
+		m_cubeSwitchL = new DigitalInput(RobotMap.DIO_INTAKE_LIM_L);
+		m_cubeSwitchR = new DigitalInput(RobotMap.DIO_INTAKE_LIM_R);
 	}
 
 	public void initDefaultCommand() {
 	}
 
 	public void setSpeed(double speed) {
-		m_leftMotor.set(speed);
+		m_leftMotor.set(-speed);
 		m_rightMotor.set(speed);
 		// m_topMotor.set(speed);
 	}
@@ -42,6 +44,6 @@ public class Intake extends Subsystem {
 	}
 
 	public boolean getHasCube() {
-		return m_cubeSwitch.get();
+		return !(m_cubeSwitchL.get() && m_cubeSwitchR.get());
 	}
 }
