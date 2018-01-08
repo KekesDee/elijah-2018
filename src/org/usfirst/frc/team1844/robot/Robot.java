@@ -64,6 +64,8 @@ public class Robot extends TimedRobot {
 
 		m_oi = new OI();
 
+		CameraServer.getInstance().startAutomaticCapture();
+
 		m_positionChooser.addDefault("Left", RobotConstants.AutoPositions.kLeft);
 		m_positionChooser.addObject("Middle", RobotConstants.AutoPositions.kMiddle);
 		m_positionChooser.addObject("Right", RobotConstants.AutoPositions.kRight);
