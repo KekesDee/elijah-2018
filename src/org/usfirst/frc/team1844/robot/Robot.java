@@ -11,6 +11,8 @@ import org.usfirst.frc.team1844.robot.subsystems.LiftArm;
 import org.usfirst.frc.team1844.robot.commands.autonomous.AutoScript;
 import org.usfirst.frc.team1844.robot.subsystems.*;
 
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -32,6 +34,8 @@ public class Robot extends TimedRobot {
 	public static Intake m_intake;
 	public static Climber m_climber;
 	public static LiftArm m_liftarm;
+	
+	UsbCamera camera1;
 	
 	Command m_autonomousCommand;
 	SendableChooser<RobotConstants.AutoPositions> m_positionChooser = new SendableChooser<>();
@@ -60,6 +64,7 @@ public class Robot extends TimedRobot {
 		m_intake = new Intake();
 		m_climber = new Climber();
 		
+		camera1 = CameraServer.getInstance().startAutomaticCapture();
 		
 		m_positionChooser.addDefault("Left", RobotConstants.AutoPositions.kLeft);
 		m_positionChooser.addObject("Middle", RobotConstants.AutoPositions.kMiddle);
