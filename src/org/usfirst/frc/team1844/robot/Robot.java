@@ -7,7 +7,7 @@
 
 package org.usfirst.frc.team1844.robot;
 
-import org.usfirst.frc.team1844.robot.commands.autonomous.AutoScript;
+import org.usfirst.frc.team1844.robot.commands.autonomous.AutoScript2;
 import org.usfirst.frc.team1844.robot.subsystems.Climber;
 import org.usfirst.frc.team1844.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team1844.robot.subsystems.Intake;
@@ -72,6 +72,8 @@ public class Robot extends TimedRobot {
 
 		m_autonomousChooser.addDefault("Switch", RobotConstants.AutoOptions.kSwitch);
 		m_autonomousChooser.addObject("Scale", RobotConstants.AutoOptions.kScale);
+		m_autonomousChooser.addObject("Breach", RobotConstants.AutoOptions.kBreach);
+		m_autonomousChooser.addObject("Nothing", RobotConstants.AutoOptions.kNothing);
 		SmartDashboard.putData("Auto options", m_autonomousChooser);
 	}
 
@@ -104,7 +106,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_autonomousCommand = new AutoScript(m_positionChooser.getSelected(), m_autonomousChooser.getSelected());
+		m_autonomousCommand = new AutoScript2(m_positionChooser.getSelected(), m_autonomousChooser.getSelected());
 
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();

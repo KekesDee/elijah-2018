@@ -15,9 +15,7 @@ public class LiftArm extends Subsystem {
 
 	public static enum ArmPositions {
 		kBottomPos, kScalePos, kSwitchPos
-	}
-
-	
+	}	
 
 	WPI_TalonSRX left = new WPI_TalonSRX(RobotMap.CAN_ARM_LEFTMOTOR);
 	WPI_TalonSRX right = new WPI_TalonSRX(RobotMap.CAN_ARM_RIGHTMOTOR);

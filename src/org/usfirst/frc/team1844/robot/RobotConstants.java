@@ -19,15 +19,41 @@ public class RobotConstants {
 	public static final double ENCODER_DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI / ENCODER_PPR * GEARBOX_REDUCTION;
 	public static final double RADIUS_OF_ROBOT = 13; // inches
 
-	public static enum AutoPositions{
-		kLeft, kMiddle, kRight
+	public static enum AutoPositions {
+		kLeft, kMiddle, kRight;
+
+		public char toChar() {
+			switch (this) {
+			case kLeft:
+				return 'L';
+			case kMiddle:
+				return 'M';
+			case kRight:
+				return 'R';
+			default:
+				return '\0';
+			}
+		}
 	}
-	
-	public static enum AutoOptions{
-		kSwitch, kScale
+
+	public static enum AutoOptions {
+		kSwitch, kScale, kNothing, kBreach;
+		
+		public int toInt() {
+			switch (this) {
+			case kSwitch:
+				return 0;
+			case kScale:
+				return 1;
+			case kBreach:
+				return 2;
+			case kNothing:
+			default:
+				return -1;
+			}
+		}
 	}
-	
-	
+
 	public static double driveP;
 	public static double driveI;
 	public static double driveD;
