@@ -63,6 +63,18 @@ public class LiftArm extends Subsystem {
 	public void initDefaultCommand() {
 
 	}
+	
+	public boolean hit_bot()
+	{
+		//assume limit switch default is false
+		return m_botSwitch.get();
+	}
+	
+	public boolean hit_top()
+	{
+		//assume limit switch default is false
+		return m_topSwitch.get();
+	}
 
 	public void setSpeed(double speed) {
 		if (speed < 0 && m_botSwitch.get())

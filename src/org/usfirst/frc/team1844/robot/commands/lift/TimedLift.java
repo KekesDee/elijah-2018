@@ -34,7 +34,7 @@ public class TimedLift extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() >= time_lim;
+        return (timer.get() >= time_lim || Robot.m_liftarm.hit_bot() || Robot.m_liftarm.hit_top() );
     }
 
     // Called once after isFinished returns true
