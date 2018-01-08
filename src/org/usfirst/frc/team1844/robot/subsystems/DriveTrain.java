@@ -62,8 +62,8 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void drive(double forwardSpeed, double turnSpeed) {
-		m_leftMotors.set(forwardSpeed + turnSpeed);
-		m_rightMotors.set(forwardSpeed - turnSpeed);
+		m_leftMotors.set(forwardSpeed - turnSpeed);
+		m_rightMotors.set(forwardSpeed + turnSpeed);
 	}
 
 	public void setTargetDistance(double targetDist) {

@@ -22,7 +22,11 @@ public class LiftWithJoystick extends Command {
 	protected void execute() {
 		double speed = Robot.m_oi.getDriverJoystick().getY(Hand.kRight); // Right Y
 
-		Robot.m_liftarm.setSpeed(speed);
+		
+		// Sloppy cube
+		speed *= speed * speed;
+
+		Robot.m_liftarm.setSpeed(speed*0.3);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
