@@ -13,11 +13,11 @@ import edu.wpi.first.wpilibj.Preferences;
  */
 public class RobotConstants {
 
-	public static final int ENCODER_PPR = 128; // Pulses Per Revolution
+	public static final int ENCODER_PPR = 2048; // Pulses Per Revolution
 	public static final double WHEEL_DIA = 3.97; // 4" Coulsons
 	public static final double GEARBOX_REDUCTION = 1;
 	public static final double ENCODER_DISTANCE_PER_PULSE = WHEEL_DIA * Math.PI / ENCODER_PPR * GEARBOX_REDUCTION;
-	public static final double RADIUS_OF_ROBOT = 13; // inches
+	public static final double RADIUS_OF_ROBOT = 15; // inches
 
 	public static enum AutoPositions {
 		kLeft, kMiddle, kRight;
@@ -38,7 +38,7 @@ public class RobotConstants {
 
 	public static enum AutoOptions {
 		kSwitch, kScale, kNothing, kBreach;
-		
+
 		public int toInt() {
 			switch (this) {
 			case kSwitch:
@@ -87,6 +87,11 @@ public class RobotConstants {
 		prefs.putDouble("Drive P", driveP);
 		prefs.putDouble("Drive I", driveI);
 		prefs.putDouble("Drive D", driveD);
+	}
+
+	public static void updatePrefs(Preferences prefs) {
+		loadPrefs(prefs);
+		repopulatePrefs(prefs);
 	}
 
 }

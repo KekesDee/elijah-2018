@@ -22,7 +22,7 @@ public class RunIntake extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Robot.m_intake.setSpeed(m_speed);
+		Robot.m_intake.set(m_speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -32,7 +32,7 @@ public class RunIntake extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
-		Robot.m_intake.stopMotors();
+		Robot.m_intake.stop();
 	}
 
 	// Called when another command which requires one or more of the same

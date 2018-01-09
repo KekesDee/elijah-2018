@@ -10,41 +10,37 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class TimedLift extends Command {
 
-	private double speed, time_lim;
-	private Timer timer;
-	
-    public TimedLift(double speed, double time_lim) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires (Robot.m_liftarm);
-    	timer = new Timer();
-    	this.speed = speed;
-    	this.time_lim = time_lim;
-    	
-    }
+	private double m_speed, m_timeLim;
+	private Timer m_timer = new Timer();
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	Robot.m_liftarm.setSpeed(speed);
-    }
+	public TimedLift(double speed, double time_lim) {
+		requires(Robot.m_liftArm);
+		m_speed = speed;
+		m_timeLim = time_lim;
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		Robot.m_liftArm.set(m_speed);
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return (timer.get() >= time_lim || Robot.m_liftarm.hit_bot() || Robot.m_liftarm.hit_top() );
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	Robot.m_liftarm.stop();
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return m_timer.get() >= m_timeLim;
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		Robot.m_liftArm.stop();
+	}
+
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

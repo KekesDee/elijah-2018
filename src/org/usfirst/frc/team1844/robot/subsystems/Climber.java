@@ -1,10 +1,11 @@
 package org.usfirst.frc.team1844.robot.subsystems;
 
 import org.usfirst.frc.team1844.robot.RobotMap;
+import org.usfirst.frc.team1844.robot.commands.climb.ClimbWithJoystick;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
+import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -12,21 +13,22 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Climber extends Subsystem {
 
-	private SpeedControllerGroup m_motors;
+	private SpeedController m_motor;
 
 	public Climber() {
-		m_motors = new SpeedControllerGroup(new WPI_TalonSRX(RobotMap.CAN_CLIMBER_LEFTMOTOR),
-				new WPI_TalonSRX(RobotMap.CAN_CLIMBER_RIGHTMOTOR));
+		m_motor = new WPI_TalonSRX(RobotMap.CAN_CLIMBER_MOTOR);
+		m_motor.setInverted(true);
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new ClimbWithJoystick());
 	}
 
-	public void setSpeed(double speed) {
-		m_motors.set(speed);
+	public void set(double speed) {
+		m_motor.set(speed);
 	}
 
 	public void stop() {
-		m_motors.stopMotor();
+		m_motor.stopMotor();
 	}
 }

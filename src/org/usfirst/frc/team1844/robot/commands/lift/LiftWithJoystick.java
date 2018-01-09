@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LiftWithJoystick extends Command {
 
 	public LiftWithJoystick() {
-		requires(Robot.m_liftarm);
+		requires(Robot.m_liftArm);
 	}
 
 	// Called just before this Command runs the first time
@@ -20,13 +20,14 @@ public class LiftWithJoystick extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double speed = Robot.m_oi.getDriverJoystick().getY(Hand.kRight); // Right Y
+		double speed = Math.pow(Robot.m_oi.getDriverJoystick().getY(Hand.kRight), 3); // Right Y
 
-		
-		// Sloppy cube
-		speed *= speed * speed;
+		if (speed < 0)
+			speed *= 0.4;
+		else
+			speed *= 0.15;
 
-		Robot.m_liftarm.setSpeed(speed*0.3);
+		Robot.m_liftArm.set(speed - 0.05);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -36,6 +37,7 @@ public class LiftWithJoystick extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.m_liftArm.stop();
 	}
 
 	// Called when another command which requires one or more of the same

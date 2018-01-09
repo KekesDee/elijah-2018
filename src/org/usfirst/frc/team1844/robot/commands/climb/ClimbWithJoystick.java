@@ -20,8 +20,10 @@ public class ClimbWithJoystick extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		double speed = Robot.m_oi.getDriverJoystick().getTriggerAxis(Hand.kRight); // R Trigger
-		Robot.m_climber.setSpeed(speed);
+		double speed = Robot.m_oi.getDriverJoystick().getTriggerAxis(Hand.kRight) // R Trigger = in
+				- Robot.m_oi.getDriverJoystick().getTriggerAxis(Hand.kLeft); // L Trigger = out
+
+		Robot.m_climber.set(speed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
@@ -31,6 +33,7 @@ public class ClimbWithJoystick extends Command {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		Robot.m_climber.stop();
 	}
 
 	// Called when another command which requires one or more of the same

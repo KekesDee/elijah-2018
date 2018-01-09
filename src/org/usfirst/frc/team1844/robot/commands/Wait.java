@@ -10,7 +10,7 @@ public class Wait extends Command {
 		requires(Robot.m_climber);
 		requires(Robot.m_drivetrain);
 		requires(Robot.m_intake);
-		requires(Robot.m_liftarm);
+		requires(Robot.m_liftArm);
 	}
 
 	@Override

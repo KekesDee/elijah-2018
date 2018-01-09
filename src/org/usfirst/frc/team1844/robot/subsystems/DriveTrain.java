@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.PIDController;
 import edu.wpi.first.wpilibj.PIDSourceType;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -25,13 +26,19 @@ public class DriveTrain extends Subsystem {
 	private Encoder m_leftEnc;
 	private Encoder m_rightEnc;
 
+	public void updateTunings() {
+		m_leftPID.setPID(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD);
+		m_rightPID.setPID(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD);
+	}
+
 	public DriveTrain() {
-		setDefaultCommand(new TeleopDrive());
 		// Setup the encoders
 		m_leftEnc = new Encoder(RobotMap.DIO_DRIVE_LEFTENC_A, RobotMap.DIO_DRIVE_LEFTENC_B, true, EncodingType.k4X);
-		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC_A, RobotMap.DIO_DRIVE_RIGHTENC_B, false, EncodingType.k4X);
+		m_rightEnc = new Encoder(RobotMap.DIO_DRIVE_RIGHTENC_A, RobotMap.DIO_DRIVE_RIGHTENC_B, true, EncodingType.k4X);
 		m_leftEnc.setPIDSourceType(PIDSourceType.kDisplacement);
 		m_rightEnc.setPIDSourceType(PIDSourceType.kDisplacement);
+		m_leftEnc.setDistancePerPulse(RobotConstants.ENCODER_DISTANCE_PER_PULSE);
+		m_rightEnc.setDistancePerPulse(RobotConstants.ENCODER_DISTANCE_PER_PULSE);
 
 		// Setup the motor controllers
 		m_leftMotors = new SpeedControllerGroup(new WPI_TalonSRX(RobotMap.CAN_DRIVE_FLMOTOR),
@@ -46,11 +53,12 @@ public class DriveTrain extends Subsystem {
 				m_leftMotors);
 		m_rightPID = new PIDController(RobotConstants.driveP, RobotConstants.driveI, RobotConstants.driveD, m_rightEnc,
 				m_rightMotors);
-
 		m_leftPID.setAbsoluteTolerance(1);
 		m_rightPID.setAbsoluteTolerance(1);
-		m_leftPID.setOutputRange(-0.8, 0.8);
-		m_rightPID.setOutputRange(-0.8, 0.8);
+
+		double maxSpeed = 0.5;
+		m_leftPID.setOutputRange(-maxSpeed, maxSpeed);
+		m_rightPID.setOutputRange(-maxSpeed, maxSpeed);
 	}
 
 	public void initDefaultCommand() {
@@ -68,15 +76,15 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void setTargetDistance(double targetDist) {
-		m_leftPID.setSetpoint(targetDist / RobotConstants.ENCODER_DISTANCE_PER_PULSE);
-		m_rightPID.setSetpoint(targetDist / RobotConstants.ENCODER_DISTANCE_PER_PULSE);
+		m_leftPID.setSetpoint(targetDist + m_leftEnc.getDistance());
+		m_rightPID.setSetpoint(-targetDist + m_rightEnc.getDistance());
 	}
 
 	public void setTargetAngle(double targetAngle) {
 		double targetRad = Math.toRadians(targetAngle);
 		double targetDist = targetRad * RobotConstants.RADIUS_OF_ROBOT;
-		m_leftPID.setSetpoint(-targetDist / RobotConstants.ENCODER_DISTANCE_PER_PULSE);
-		m_rightPID.setSetpoint(targetDist / RobotConstants.ENCODER_DISTANCE_PER_PULSE);
+		m_leftPID.setSetpoint(targetDist + m_leftEnc.getDistance());
+		m_rightPID.setSetpoint(targetDist + m_rightEnc.getDistance());
 	}
 
 	public boolean getPIDOnTarget() {
@@ -96,5 +104,26 @@ public class DriveTrain extends Subsystem {
 	public void resetPID() {
 		m_leftPID.reset();
 		m_rightPID.reset();
+	}
+
+	public void resetEncoders() {
+		m_leftEnc.reset();
+		m_rightEnc.reset();
+	}
+
+	public double getLeftEncRaw() {
+		return m_leftEnc.get();
+	}
+
+	public double getRightEncRaw() {
+		return m_rightEnc.get();
+	}
+
+	public double getLeftEncDist() {
+		return m_leftEnc.getDistance();
+	}
+
+	public double getRightEncDist() {
+		return m_rightEnc.getDistance();
 	}
 }

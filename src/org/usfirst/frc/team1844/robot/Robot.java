@@ -16,6 +16,7 @@ import org.usfirst.frc.team1844.robot.subsystems.LiftArm;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -34,12 +35,13 @@ public class Robot extends TimedRobot {
 	public static DriveTrain m_drivetrain;
 	public static Intake m_intake;
 	public static Climber m_climber;
-	public static LiftArm m_liftarm;
+	public static LiftArm m_liftArm;
 
-	Command m_autonomousCommand;
-	SendableChooser<RobotConstants.AutoPositions> m_positionChooser = new SendableChooser<>();
-	SendableChooser<RobotConstants.AutoOptions> m_autonomousChooser = new SendableChooser<>();
+	private Command m_autonomousCommand;
+	private SendableChooser<RobotConstants.AutoPositions> m_positionChooser = new SendableChooser<>();
+	private SendableChooser<RobotConstants.AutoOptions> m_autonomousChooser = new SendableChooser<>();
 
+	private Timer m_prefsUpdateTimer = new Timer();
 	private Preferences m_robotPrefs;
 
 	/**
@@ -56,8 +58,8 @@ public class Robot extends TimedRobot {
 		RobotConstants.loadPrefs(m_robotPrefs);
 		RobotConstants.repopulatePrefs(m_robotPrefs);
 
-		m_liftarm = new LiftArm();
 		m_drivetrain = new DriveTrain();
+		m_liftArm = new LiftArm();
 		m_intake = new Intake();
 		m_climber = new Climber();
 
@@ -84,12 +86,21 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		m_drivetrain.resetPID();
+		m_drivetrain.resetEncoders();
 
+		m_prefsUpdateTimer.reset();
+		m_prefsUpdateTimer.start();
 	}
 
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
+
+		// Not really necessary. But why not.
+		if (m_prefsUpdateTimer.hasPeriodPassed(3))
+			RobotConstants.updatePrefs(m_robotPrefs);
 	}
 
 	/**
@@ -106,6 +117,10 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		m_drivetrain.resetEncoders();
+		RobotConstants.updatePrefs(m_robotPrefs);
+		m_drivetrain.updateTunings();
+
 		m_autonomousCommand = new AutoScript2(m_positionChooser.getSelected(), m_autonomousChooser.getSelected());
 
 		if (m_autonomousCommand != null) {
@@ -119,6 +134,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	@Override
@@ -130,6 +146,10 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+
+		m_drivetrain.resetEncoders();
+		RobotConstants.updatePrefs(m_robotPrefs);
+		m_drivetrain.updateTunings();
 	}
 
 	/**
@@ -138,6 +158,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		updateSmartDashboard();
 	}
 
 	/**
@@ -145,5 +166,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	}
+
+	private void updateSmartDashboard() {
+		SmartDashboard.putNumber("Left Enc Raw", m_drivetrain.getLeftEncRaw());
+		SmartDashboard.putNumber("Right Enc Raw", m_drivetrain.getRightEncRaw());
+		SmartDashboard.putNumber("Left Enc Dist", m_drivetrain.getLeftEncDist());
+		SmartDashboard.putNumber("Right Enc Dist", m_drivetrain.getRightEncDist());
 	}
 }
