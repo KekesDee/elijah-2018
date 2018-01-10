@@ -20,8 +20,8 @@ public class TeleopDrive extends Command {
 
 	// Called repeatedly when thijs Command is scheduled to run
 	protected void execute() {
-		double drive = Math.pow(Robot.m_oi.getDriverJoystick().getY(Hand.kLeft), 2);
-		double curve = Math.pow(Robot.m_oi.getDriverJoystick().getX(Hand.kLeft), 2);
+		double drive = Math.pow(Robot.m_oi.getDriverJoystick().getY(Hand.kLeft), 3);
+		double curve = Math.pow(Robot.m_oi.getDriverJoystick().getX(Hand.kLeft), 3);
 		
 		curve *= 0.7;
 		

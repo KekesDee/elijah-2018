@@ -21,7 +21,8 @@ public class Intake extends Subsystem {
 	public Intake() {
 		m_leftMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_LEFTMOTOR);
 		m_rightMotor = new WPI_TalonSRX(RobotMap.CAN_INTAKE_RIGHTMOTOR);
-		m_rightMotor.setInverted(true);
+		// m_rightMotor.setInverted(true);
+		// Apparently this doesn't work on WPI_TalonSRX
 
 		m_cubeSwitchL = new DigitalInput(RobotMap.DIO_INTAKE_LIM_L);
 		m_cubeSwitchR = new DigitalInput(RobotMap.DIO_INTAKE_LIM_R);
@@ -32,7 +33,7 @@ public class Intake extends Subsystem {
 
 	public void set(double speed) {
 		m_leftMotor.set(speed);
-		m_rightMotor.set(speed);
+		m_rightMotor.set(-speed);
 	}
 
 	public void stop() {

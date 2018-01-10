@@ -17,7 +17,8 @@ public class Climber extends Subsystem {
 
 	public Climber() {
 		m_motor = new WPI_TalonSRX(RobotMap.CAN_CLIMBER_MOTOR);
-		m_motor.setInverted(true);
+		// m_motor.setInverted(true);
+		// Apparently this doesn't work on WPI_TalonSRX
 	}
 
 	public void initDefaultCommand() {
@@ -25,7 +26,7 @@ public class Climber extends Subsystem {
 	}
 
 	public void set(double speed) {
-		m_motor.set(speed);
+		m_motor.set(-speed);
 	}
 
 	public void stop() {

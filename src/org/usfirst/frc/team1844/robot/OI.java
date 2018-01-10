@@ -21,7 +21,7 @@ public class OI {
 
 	private XboxController m_driveStick = new XboxController(0);
 
-	private Button intakeInSlow = new JoystickButton(m_driveStick, 1);	// A 
+	private Button intakeInSlow = new JoystickButton(m_driveStick, 1);	// A
 	private Button intakeInFast = new JoystickButton(m_driveStick, 3);	// X
 	private Button intakeOutSlow = new JoystickButton(m_driveStick, 2);	// B
 	private Button intakeOutFast = new JoystickButton(m_driveStick, 4);	// Y
